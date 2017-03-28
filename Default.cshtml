@@ -1,0 +1,104 @@
+﻿@*@using Microsoft.Web.Helpers;*@
+
+@{
+    Layout = "_SULayout.cshtml";
+    Page.Title = "MATHEMATICS AND COMPUTER SCIENCE INTERNSHIP APPLICATION";
+
+
+    Response.Write(Session["email"]);
+
+
+}
+<style>
+    #syllabus {
+        margin: 20px 300px 20px 300px;
+    }
+    h2 {
+        text-align: center;
+        color: #800000;
+    }
+    .div-table {
+        display: table; 
+        width: auto;
+        margin: 0 auto;
+    }
+    .div-table-row {
+        display: table-row;
+        width: auto; 
+        clear: both;
+    }
+    .div-table-col {
+        float: left; 
+        display: table-column; 
+        width: 200px;
+    }
+</style>
+<div id="syllabus">
+    <h2>
+        SU DEPARTMENT OF MATHEMATICS AND COMPUTER SCIENCE<br />
+        SYLLABUS (Tentative)<br />
+        COSC/MATH 380 Internship<br />
+    </h2>
+    <p>
+        <strong>Description:</strong> Designed to enhance understanding of how mathematics, statistics, or computer
+        science are actually used in practice. Students work in a private business or public agency on a 
+        project for which they can apply knowledge and experience related to their field of study. Students 
+        must meet regularly with their faculty advisors. A final paper, which will be kept on file in the Department 
+        Office, and an oral presentation are required. Students must register for the internship concurrent with 
+        the experience. COSC/MATH 380 may be taken twice but used only once toward a degree in mathematics. Offered 
+        on a pass/fail basis only.
+    </p>
+    <p>
+        <strong>Objective:</strong> To provide the student with an academically-coordinated professional experience
+        related to the student’s field of study.
+    </p>
+    <p>
+        <strong>Prerequisite:</strong> A completed Internship Application Form signed by supervisor, faculty advisor,
+        department chair, and student.
+    </p>
+    <p>
+        To ensure that the goals and expectations of the internship are clear to all concerned, before
+        registering for this course, the student must have completed and have on file in the Departmental
+        Office the Internship Application Form.
+    </p>
+    <p>
+        The student is expected to work 8-10 hours per week for (during a 14-week semester), for a total
+        of about 125 hours. The weekly hours are adjusted for summer and winter internships. Bi-weekly
+        conferences will be held between the internship advisor and the student to see that the internship 
+        is going as expected and to help keep the work and study aspects of the internship on an even keel.
+    </p>
+    <p>
+        The following are due to the internship advisor at the end of each week indicated (during a 14-
+        week semester):
+    </p>
+    <div class="div-table">
+        <div class="div-table-row">
+            <div class="div-table-col"><strong>Activity</strong></div>
+            <div class="div-table-col"><strong>Week</strong></div>
+        </div>
+        <div class="div-table-row">
+            <div class="div-table-col">Midterm Report</div>
+            <div class="div-table-col">6<sup>th</sup></div>
+        </div>
+        <div class="div-table-row">
+            <div class="div-table-col">Oral Presentation</div>
+            <div class="div-table-col">13<sup>th</sup></div>
+        </div>
+        <div class="div-table-row">
+            <div class="div-table-col">Final Report (typed)</div>
+            <div class="div-table-col">14<sup>th</sup></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <p>The due dates for activities during the summer and winter sessions will be arranged by the faculty advisor.</p>
+    <p>
+        The midterm report should address the initial objectives and any changes in the objectives, 
+        as well as summarize the progress made. The oral presentation to students and faculty should be a 
+        summary of the highlights of the internship. The final report should summarize the entire internship 
+        experience and should indicate how the student' s coursework meshed with reality.
+        In addition to the completion of the above activities, the internship advisor and the work
+        supervisor must agree that the expectations of the internship have been fulfilled for a passing grade.
+    </p>
+    <p><a target="_blank" href="~/Internshipapp.pdf">Download the syllabus as a PDF</a></p>
+</div>
+

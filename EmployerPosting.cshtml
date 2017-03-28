@@ -1,0 +1,138 @@
+﻿@*@using Microsoft.Web.Helpers;*@
+@{
+    Layout = "_SULayout.cshtml";
+    Page.Title = "MATHEMATICS AND COMPUTER SCIENCE EMPLOYER JOB POSTING";
+
+        <!-- Insert from data into table -->
+    if (IsPost)
+    {
+
+        <!-- Connect to Database -->
+        var db = Database.Open("MyConnectionString");
+
+        <!-- Grab contents of the form -->
+        var company_name = Request.Form["company_name"];
+        var sem_year = Request.Form["semester"] + " " + Request.Form["year"];
+        var company_website = Request.Form["company_website"];
+        var compensated = Request.Form["compensated"];
+        var company_url = Request.Form["company_url"];
+        var app_exp = Request.Form["app_exp"];
+        var employee_name = Request.Form["employee_name"];
+        var ssuper = Request.Form["ssuper"];
+        var employee_email = Request.Form["employee_email"];
+        var intern_req = Request.Form["intern_req"];
+        var city = Request.Form["city"];
+        var state = Request.Form["state"];
+        var intern_duties = Request.Form["intern_duties"];
+        var majors = Request.Form["majors"];
+        var major_other = Request.Form["majors_other"];
+        var completed = 1;
+        var approved = 1;
+
+
+        var insertQuery = "INSERT INTO MATHCOSC_APPLICATIONS (COMPANY_NAME, SEM_YEAR, COMPANY_WEBSITE, COMPENSATED, COMPANY_URL, APP_EXP, EMPLOYEE_NAME, SSUPER, EMPLOYEE_EMAIL, INTERN_REQ, CITY, STATE, INTERN_DUTIES, MAJORS, MAJOR_OTHER, COMPLETED, APPROVED) " +
+            "VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16)";
+        db.Execute(insertQuery, company_name, sem_year, company_website, compensated, company_url, app_exp, employee_name, ssuper, employee_email, intern_req, city, state, intern_duties, majors, major_other, completed, approved);
+
+
+
+    }
+
+}
+
+<div id="employer_app" title="new_employer_application">
+    <form id="entry-form" method="post" enctype="multipart/form-data">
+        <h1>Employer Job Posting</h1>
+        <div class="left">
+            <span class="label"><label for="company_name">Company's Name:</label></span>
+            <input type="text" name="company_name" id="cname" class="required" />
+        </div>
+        <div>
+            <label for="semester">Semester/Year of Employment: </label>
+            <select name="semester" id="semester" class="required">
+                <option value="" selected="true" disabled="disabled">Choose semester</option>
+                <option value="Fall">Fall</option>
+                <option value="Winter">Winter</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+            </select>
+            <select name="year" id="year" class="required">
+                <option value="" selected="true" disabled="disabled">Choose year</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+            </select>
+        </div>
+        <div class="clear"></div>
+        <div class="left">
+            <span class="label"><label for="company_website">Company's Website:</label></span>
+            <input type="text" name="company_website" id="cwebsite" class="required" />
+        </div> 
+        <div>
+            <span class="label">Paid or Unpaid Internship:</span>
+            <label><input type="radio" name="compensated" class="required" />Paid </label>
+            <label><input type="radio" name="compensated" />Unpaid</label>
+        </div>
+        <div class="clear"></div>
+        <div class="left">
+            <span class="label"><label for="company_url">Application URL:</label></span>
+            <input type="text" name="company_url" id="company_url"/>
+        </div>
+        <div>
+            <span class="label"><label for="app_exp">Application Expiration:</label></span>
+            <input type="date" name="app_exp" id="app_exp" class="required"/>
+        </div>
+        <div class="clear"></div>
+        <div class="left">
+            <span class="label"><label for="ename">Employee's Name:</label></span>
+            <input type="text" name="ename" id="ename" class="required" />
+        </div>
+        <div>
+            <span class="label">Will you be students supervisor:</span>
+            <label><input type="radio" name="ssuper" class="required" />Yes </label>
+            <label><input type="radio" name="ssuper" />No</label>
+        </div>
+        <div class="clear"></div>
+        <div class="left">
+            <span class="label"><label for="employee_email">Employee's Email:</label></span>
+            <input type="text" name="employee_email" id="employee_email" class="required" />
+        </div>
+        <div>
+            <span class="label"><label for="intern_req">Internship Requirements:</label></span>
+            <textarea name="intern_req" id="intern_req" rows="" cols="" class="intern_req"></textarea>
+        </div>
+        <div class="clear"></div>
+        <div class="left">
+            <span class="label"><label for="city">City:</label></span>
+            <input type="text" name="city" id="city" class="required" />
+        </div>
+        <div>
+            <span class="label"><label for="intern_duties">Internship Duties:</label></span>
+            <textarea name="intern_duties" id="intern_duties" rows="" cols="" class="goals"></textarea>
+        </div>
+        <div class="clear"></div>
+        <div class="left">
+            <span class="label"><label for="state">State:</label></span>
+            <input type="text" name="state" id="state" class="required" />
+        </div>   
+        <div>
+            <label for="majors">Majors Wanted: </label>
+            <select name="majors" id="majors" class="required">
+                <option value="" selected="true" disabled="disabled">Choose Major</option>
+                <option value="Math">Math</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="clear"></div>
+        <div class="left">
+        </div>
+        <div>
+            <span class="label"><label for="majors_other">If Other Please Enter Required Major:</label></span>
+            <textarea name="majors_other" id="majors_other" rows="" cols="" class="goals"></textarea>
+        </div>    
+        <div class="clear"></div><br />
+        <input style="font-size: 20px;" class="input-button" type="submit" value="Submit">
+    </form>
+</div>

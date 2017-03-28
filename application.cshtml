@@ -1,0 +1,210 @@
+﻿@*@using Microsoft.Web.Helpers;*@
+
+@{
+    Layout = "_SULayout.cshtml";
+    Page.Title = "MATHEMATICS AND COMPUTER SCIENCE INTERNSHIP APPLICATION";
+
+    <!-- Store session variables as local variables so they can be added to form -->
+    var firstname = Session["firstname"];
+    var lastname = Session["lastname"];
+    var email = Session["email"];
+
+    <!-- Insert from data into table -->
+    if (IsPost)
+    {
+
+        <!-- Connect to Database -->
+        var db = Database.Open("MyConnectionString");
+
+        <!-- Grab contents of the form -->
+        var course = Request.Form["course"];
+        var sem_year = Request.Form["semester"] + " " + Request.Form["year"];
+        var fname = Request.Form["fname"];
+        var lname = Request.Form["lname"];
+        var major = Request.Form["major"];
+        var standing = Request.Form["standing"];
+        var student_address = Request.Form["student_address"];
+        var student_phone = Request.Form["student_phone"];
+        var student_email = Request.Form["student_email"];
+        var advisor_name = Request.Form["advisor_name"];
+        var advisor_email = Request.Form["advisor_email"];
+        var firm_name = Request.Form["firm_name"];
+        var firm_phone = Request.Form["firm_phone"];
+        var firm_address = Request.Form["firm_address"];
+        var supervisor_name = Request.Form["supervisor_name"];
+        var supervisor_title = Request.Form["supervisor_title"];
+        var supervisor_email = Request.Form["supervisor_email"];
+        var internship_name = Request.Form["internship_name"];
+        var goals = Request.Form["goals"];
+        var completed = 1;
+        var approved = 1;
+
+
+        var insertQuery = "INSERT INTO MATHCOSC_APPLICATIONS (EMAIL, FNAME, LNAME, COURSE_SEMESTER, STANDING, MAJOR, ADDRESS, PHONE, ADVISOR_NAME, ADVISOR_EMAIL, FIRM_NAME, FIRM_PHONE, FIRM_ADDRESS, SUPERVISOR_NAME, SUPERVISOR_TITLE, SUPERVISOR_EMAIL, INTERNSHIP_TITLE, GOALS, COMPLETED, APPROVED) " +
+            "VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16, @17, @18, @19)";
+        db.Execute(insertQuery, student_email, fname, lname, sem_year, standing, major, student_address, student_phone, advisor_name, advisor_email, firm_name, firm_phone, firm_address, supervisor_name, supervisor_title, supervisor_email, internship_name, goals, completed, approved);
+
+
+
+    }
+
+}
+
+<!-- Form Validation -->
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#entry_form").validate({
+
+            rules: {
+                student_email: {
+                    email: true
+                },
+                advisor_email: {
+                    email: true
+                },
+                supervisor_email: {
+                    email: true
+                }
+            },
+
+            errorPlacement: function (error, element) {
+                if (element.attr("name") == "course") {
+                    error.insertAfter("#course");
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+
+        });
+    });
+
+</script> 
+
+<div id="intern_app">
+    <form id="entry_form" method="post" enctype="multipart/form-data">
+        <h1>Internship Credit Application</h1>
+
+        <!-- Student Information -->
+        <h3>Student Information</h3>
+        <div class="left">
+            <label id="course">Course Enrolled in: </label>
+            <label><input type="radio" name="course" class="required" />COSC 380 </label>
+            <label><input type="radio" name="course" />MATH 380</label>
+        </div>
+        <div>
+            <label for="semester">Semester/Year of Enrollment: </label>
+            <select name="semester" id="semester" class="required">
+                <option value="" selected="true" disabled="disabled">Choose semester</option>
+                <option value="Fall">Fall</option>
+                <option value="Winter">Winter</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+            </select>
+            <select name="year" id="year" class="required">
+                <option value="" selected="true" disabled="disabled">Choose year</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+            </select>
+        </div>
+        <div class="clear"></div>
+        <div class="left">
+            <label for="fname">Student First Name:</label>
+            <input disabled="disabled" type="text" name="fname" id="fname" value="@firstname" class="required" />
+        </div>
+        <div>
+            <label for="lname">Student Last Name:</label>
+            <input disabled="disabled" type="text" size="30" name="lname" id="lname" value="@lastname" class="required" />
+        </div>
+        <div class="clear"></div>
+        <div class="left">
+            <label for="major">Major:</label>
+            <input type="text" size="35" name="major" id="major" class="required" />
+        </div>
+        <div>
+            <label for="standing">Class Standing:</label>
+            <select name="standing" id="standing" class="required">
+                <option value="" selected="true" disabled="disabled">Choose Standing</option>
+                <option value="Freshman">Freshman</option>
+                <option value="Sophomore">Sophomore</option>
+                <option value="Junior">Junior</option>
+                <option value="Senior">Senior</option>
+            </select>
+        </div>
+        <div class="clear"></div>
+        <div class="left">
+            <label for="student_address">Student Address:</label>
+            <input type="text" size="60" name="student_address" id="student_address" class="required" />
+        </div>
+        <div>
+            <label for="student_phone">Student Phone Number:</label>
+            <input type="text" name="student_phone" id="student_phone" class="required" />
+        </div>
+        <div class="clear"></div>
+        <div style="padding-bottom: 20px">
+            <label for="student_email">Student Email:</label>
+            <input disabled="disabled" type="text" size="40" name="student_email" id="student_email" value="@email" class="required" />
+        </div>
+        <div class="clear"></div>
+
+
+        <!-- Advisor Information -->
+        <h3>Advisor Information</h3>
+        <div class="left">
+            <label for="advisor_name">Salisbury University Internship Advisor's Name:</label>
+            <input type="text" name="advisor_name" id="advisor_name" size="25" class="required" />
+        </div>
+        <div>
+            <label for="advisor_email">Salisbury University Internship Advisor's Email:</label>
+            <input type="text" name="advisor_email" id="advisor_email" size="40" class="required" />
+        </div>
+        <div class="clear"></div>
+
+        <!-- Company Information -->
+        <h3>Company Information</h3>
+        <div class="left">
+            <label for="firm_name">Firm or Institution Name:</label>
+            <input type="text" name="firm_name" id="firm_name" class="required" />
+        </div>
+        <div>
+            <label for="firm_phone">Firm or Institution Phone Number:</label>
+            <input type="text" name="firm_phone" id="firm_phone" class="required" />
+        </div>
+        <div class="clear"></div>
+        <div class="left">
+            <label for="firm_address">Firm or Institution Address:</label>
+            <input type="text" size="65" name="firm_address" id="firm_address" class="required" />
+        </div>
+        <div>
+            <label for="supervisor_name">Work Supervisor's Name:</label>
+            <input type="text" name="supervisor_name" id="supervisor_name" class="required" />
+        </div>
+        <div class="clear"></div>
+        <div class="left">
+            <label for="supervisor_title">Work Supervisor's Title:</label>
+            <input type="text" name="supervisor_title" id="supervisor_title" class="required" />
+        </div>
+        <div>
+            <label for="supervisor_email">Work Supervisor's Email:</label>
+            <input type="text" size="40" name="supervisor_email" id="supervisor_email" class="required" />
+        </div>
+        <div class="clear"></div>
+
+        <!-- Internship Information -->
+        <h3>Internship Information</h3>
+        <div style="margin-bottom: 20px;">
+            <label for="internship_name">Brief Name of Internship:</label>
+            <input type="text" name="internship_name" id="internship_name" class="required" />
+        </div>
+        <div class="clear"></div>
+        <div>
+            <label for="goals">Proposed Goals and Expectations of the Internship:</label><br />
+            <textarea name="goals" rows="7" cols="80" id="goals" class="required"></textarea>
+        </div>
+        <div class="clear"></div><br />
+        <input style="font-size: 20px;" class="input-button" type="submit" value="Submit">
+    </form>
+
+</div>

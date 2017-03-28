@@ -1,0 +1,22 @@
+﻿@*@Using Microsoft.Web.Helpers;*@
+@{
+    Layout = " _SULayout.cshtml";
+    Page.Title = "Math and Computer Science Intern Advisor Form";
+}
+
+
+<div id="advisior_Sign_app" title="advisior_Sign_application">
+    <form id="entry-form" method="post" enctype="multipart/form-data">
+        <h1>Advisor Signature Request Form</h1>
+        <div class="row">
+            <span class="label">Intern Advisor Signature:</span>
+            <label><input type="text" name="fuse_uname" class="required" /></label>
+        </div>
+        <div class="row">
+            <span class="label"><label for="sem_year">Semester/Year of Enrollment: (Ex. Fall 2017)</label></span>
+            @Html.TextBox("txtFrmDate", DateTime.Now.ToString("dd-MMM-yyyy"))
+        </div>
+        <div class="clear"></div><br />
+        <input style="font-size: 20px;" class="input-button" type="submit" value="Submit">
+    </form>
+</div>

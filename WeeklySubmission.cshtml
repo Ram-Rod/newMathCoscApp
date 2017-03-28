@@ -1,0 +1,56 @@
+﻿@*@Using Microsoft.Web.Helpers;*@
+@{
+    Layout = " _SULayout.cshtml";
+    Page.Title = "Weekly Submission Form";
+
+    Response.Write(Session["email"]);
+
+    var student_email = Session["email"];
+    <!--
+
+        Search MATHCOSC_APPLICATIONS where session email = EMAUL, SELECT ID, that will be put into reports as app_id
+
+
+
+    -->
+}
+<style>
+    .row {
+        margin-bottom: 15px;
+    }
+</style>
+<div id="intern_app" title="new_intern_application">
+    <form id="entry-form" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <label for="id_num">ID Number:</label>
+            <label><input type="text" name="id_num" id="id_num" class="required" /></label>
+        </div>
+        <div class="row">
+            <label for="fname">First Name:</label>
+            <label><input type="text" name="fname" id="fname" class="required" /></label>
+        </div>
+        <div class="row">
+            <label for="lname">Last Name: </label>
+            <label><input type="text" name="lname" id="lname" class="required" /></label>
+        </div>
+        <div class="row">
+            <label for="wfrom">Week: </label>
+            <input type="date" name="wfrom" id="wfrom" class="required" />
+        </div>
+        <div class="row">
+            <label for="task_comp">Tasks Completed:</label><br />
+            <label><textarea rows="7" cols="30" name="task_comp" id="task_comp" class="required"></textarea></label>
+        </div>
+        <div class="row">
+            <label for="chal_faced">Challenged Faced:</label><br />
+            <label><textarea rows="7" cols="30" name="chal_faced" id="chal_faced" class="required"></textarea></label>
+        </div>
+        <div class="row">
+            <label for="task_to_comp">Next Week Tasks:</label><br />
+            <label><textarea rows="7" cols="30" name="task_to_comp" id="task_to_comp" class="required"></textarea></label>
+        </div>
+        <div class="row">
+            <input type="Submit" value="submit" />
+        </div>
+    </form>
+</div>
