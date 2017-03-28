@@ -36,9 +36,13 @@
 
                 <!-- create session varible app_id and set it to users Application ID, set to null if no record found -->
                 if (record != null)
+                {
                     Session["app_id"] = @record.ID;
+                }
                 else
+                {
                     Session["app_id"] = null;
+                }
 
                 Response.Redirect("Default");
             }
