@@ -1,7 +1,13 @@
 ﻿
 
 @{
-    //Code that runs first when any page in the app is loaded... 
-    //Use for user authentication
+    var student_email = Session["email"];
+
+    if (student_email == null && Request.Url.ToString() != "http://localhost:50168/login.cshtml")
+    {
+        Response.Redirect("login.cshtml");
+    }
+
+    
 
 }

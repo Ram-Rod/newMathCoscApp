@@ -1,12 +1,15 @@
 ﻿@*@using Microsoft.Web.Helpers;*@
 
-@{
+@{ 
     Layout = "_SULayout.cshtml";
     Page.Title = "MATHEMATICS AND COMPUTER SCIENCE INTERNSHIP APPLICATION";
 
+    var message1 = "";
+    var message2 = "";
+
     if (IsPost)
     {
-        
+
         <!-- Connect to Database -->
         var db = Database.Open("MyConnectionString");
 
@@ -17,7 +20,7 @@
         var getInfo = db.QuerySingle("SELECT * FROM employeeinfo_all WHERE email=@0", email);
         if (getInfo == null)
         {
-            Response.Write("none found");
+            message1 = "No results found for the email you entered. Try Again.";
         }
         else
         {
@@ -26,16 +29,25 @@
                 Session["firstname"] = @getInfo.firstname;
                 Session["lastname"] = @getInfo.lastname;
                 Session["email"] = @getInfo.email;
+
+                var record = db.QuerySingle("SELECT * FROM MATHCOSC_APPLICATIONS WHERE EMAIL=@0", Session["email"]);
+
+                if (record != null)
+                    Session["app_id"] = @record.ID;
+                else
+                    Session["app_id"] = null;
+
                 Response.Redirect("Default");
             }
             else
             {
-                Response.Write("email and passwords do not match");
+                message2 = "Email and Password do not match. Try Again.";
             }
         }
     }
-
 }
+
+
 
 <!-- Form Validation -->
 <script type="text/javascript" language="javascript">
@@ -54,6 +66,12 @@
     .hidden {
         display: none;
     }
+    #noemail:empty {
+        display: none;
+    }
+    #nomatch:empty {
+        display: none;
+    }
 </style>
 
 <div>
@@ -69,8 +87,8 @@
             <input type="password" name="password" id="password" class="required" />
         </div>
         <div class="clear"></div>
-        <p id="noemail" class="error hidden"><strong>No results found for the email you entered. Try Again.</strong></p>
-        <p id="nomatch" class="error hidden"><strong>Email and Password do not match. Try Again.</strong></p>
+        <p id="noemail"><strong>@message1</strong></p>
+        <p id="nomatch"><strong>@message2</strong></p>
         <input style="font-size: 20px;" class="input-button" type="submit" value="Login" />
     </form>
 

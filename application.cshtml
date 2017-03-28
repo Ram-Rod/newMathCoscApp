@@ -19,13 +19,13 @@
         <!-- Grab contents of the form -->
         var course = Request.Form["course"];
         var sem_year = Request.Form["semester"] + " " + Request.Form["year"];
-        var fname = Request.Form["fname"];
-        var lname = Request.Form["lname"];
+        var fname = firstname;
+        var lname = lastname;
         var major = Request.Form["major"];
         var standing = Request.Form["standing"];
         var student_address = Request.Form["student_address"];
         var student_phone = Request.Form["student_phone"];
-        var student_email = Request.Form["student_email"];
+        var student_email = email;
         var advisor_name = Request.Form["advisor_name"];
         var advisor_email = Request.Form["advisor_email"];
         var firm_name = Request.Form["firm_name"];
@@ -38,11 +38,12 @@
         var goals = Request.Form["goals"];
         var completed = 1;
         var approved = 1;
+        var date_submitted = DateTime.Now.ToString("MM/dd/yy");
 
 
-        var insertQuery = "INSERT INTO MATHCOSC_APPLICATIONS (EMAIL, FNAME, LNAME, COURSE_SEMESTER, STANDING, MAJOR, ADDRESS, PHONE, ADVISOR_NAME, ADVISOR_EMAIL, FIRM_NAME, FIRM_PHONE, FIRM_ADDRESS, SUPERVISOR_NAME, SUPERVISOR_TITLE, SUPERVISOR_EMAIL, INTERNSHIP_TITLE, GOALS, COMPLETED, APPROVED) " +
-            "VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16, @17, @18, @19)";
-        db.Execute(insertQuery, student_email, fname, lname, sem_year, standing, major, student_address, student_phone, advisor_name, advisor_email, firm_name, firm_phone, firm_address, supervisor_name, supervisor_title, supervisor_email, internship_name, goals, completed, approved);
+        var insertQuery = "INSERT INTO MATHCOSC_APPLICATIONS (EMAIL, FNAME, LNAME, COURSE_SEMESTER, STANDING, MAJOR, ADDRESS, PHONE, ADVISOR_NAME, ADVISOR_EMAIL, FIRM_NAME, FIRM_PHONE, FIRM_ADDRESS, SUPERVISOR_NAME, SUPERVISOR_TITLE, SUPERVISOR_EMAIL, INTERNSHIP_TITLE, GOALS, COMPLETED, APPROVED, DATE_SUBMITTED, COURSE) " +
+            "VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16, @17, @18, @19, @20, @21)";
+        db.Execute(insertQuery, student_email, fname, lname, sem_year, standing, major, student_address, student_phone, advisor_name, advisor_email, firm_name, firm_phone, firm_address, supervisor_name, supervisor_title, supervisor_email, internship_name, goals, completed, approved, date_submitted, course);
 
 
 
@@ -54,7 +55,7 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
-        $("#entry_form").validate({
+        $("#intern_form").validate({
 
             rules: {
                 student_email: {
@@ -82,15 +83,15 @@
 </script> 
 
 <div id="intern_app">
-    <form id="entry_form" method="post" enctype="multipart/form-data">
+    <form id="intern_form" method="post" enctype="multipart/form-data">
         <h1>Internship Credit Application</h1>
 
         <!-- Student Information -->
         <h3>Student Information</h3>
         <div class="left">
             <label id="course">Course Enrolled in: </label>
-            <label><input type="radio" name="course" class="required" />COSC 380 </label>
-            <label><input type="radio" name="course" />MATH 380</label>
+            <label><input type="radio" name="course" value="COSC 380" class="required" />COSC 380 </label>
+            <label><input type="radio" name="course" value="MATH 380" />MATH 380</label>
         </div>
         <div>
             <label for="semester">Semester/Year of Enrollment: </label>

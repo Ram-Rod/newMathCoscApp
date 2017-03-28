@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var show_progress = "";
+    if (Session["app_id"] != null)
+    {
+        show_progress = "Internship Progress";
+    }
+    Response.Write(show_progress);
+
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -33,6 +42,11 @@
         //this deals with clients with no js...
         document.write('<style>.noscript { display:none }</style>');
     </script>
+    <style>
+        #progress:empty {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div id="header">
@@ -59,7 +73,7 @@
         <a class="input-button" href="application.cshtml">Internship Credit Application</a>
     </div>
     <div style="float: left">
-        <a class="input-button" href="WeeklySubmission.cshtml">Internship Progress</a>
+        <a class="input-button" id="progress" href="WeeklySubmission.cshtml">@show_progress</a>
     </div>
     <div style="float: right;  margin-left: 10px;">
         <a class="input-button" href="logout.cshtml">Log Out</a>
