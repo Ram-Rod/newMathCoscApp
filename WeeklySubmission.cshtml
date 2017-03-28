@@ -10,12 +10,13 @@
     var appNum = db.QueryValue("SELECT ID FROM MATHCOSC_APPLICATIONS WHERE EMAIL=@0", student_email);
 
     var selectQueryString = "SELECT * FROM MATHCOSC_PROGRESS_REPORTS WHERE APP_ID=@0 ORDER BY WEEK DESC";
-    var weekQuery = db.Query(selectQueryString, appNum);
+    var weekQuery = db.QuerySingle(selectQueryString, appNum);
 
     if (IsPost)
     {
+        <!-- Get current week, week = 1 if first entry -->
         var week = 0;
-        if (weekQuery != null)
+        if (weekQuery == null)
         {
             week = 1;
         }
@@ -28,6 +29,7 @@
         var report = Request.Form["report"];
         var date_submitted = DateTime.Now.ToString("MM/dd/yy");
 
+        <!-- insert new entry into database -->
         var insertQuery = "INSERT INTO MATHCOSC_PROGRESS_REPORTS (APP_ID, WEEK, REPORT, DATE_SUBMITTED) VALUES (@0, @1, @2, @3)";
         db.Execute(insertQuery, appNum, week, report, date_submitted);
     }
@@ -52,7 +54,7 @@
 
 <div id="intern_app">
     <h3>Past Reports</h3>
-    <table class="row">
+    <table style="margin-bottom: 50px;">
         <thead>
             <tr>
                 <th>Week</th>
@@ -72,6 +74,7 @@
         </tbody>
     </table>
     <form id="report_form" method="post" enctype="multipart/form-data">
+        <h3>Add new weekly report</h3>
         <div class="row">
             <label for="report">Weekly Report (Tasks Completed, Challenges Faced, Next Week Tasks):</label><br />
             <label><textarea rows="12" cols="80" name="report" id="report" class="required"></textarea></label>

@@ -17,7 +17,9 @@
         var email = Request.Form["email"];
         var password = Request.Form["password"];
 
+
         var getInfo = db.QuerySingle("SELECT * FROM employeeinfo_all WHERE email=@0", email);
+
         if (getInfo == null)
         {
             message1 = "No results found for the email you entered. Try Again.";
@@ -32,6 +34,7 @@
 
                 var record = db.QuerySingle("SELECT * FROM MATHCOSC_APPLICATIONS WHERE EMAIL=@0", Session["email"]);
 
+                <!-- create session varible app_id and set it to users Application ID, set to null if no record found -->
                 if (record != null)
                     Session["app_id"] = @record.ID;
                 else
